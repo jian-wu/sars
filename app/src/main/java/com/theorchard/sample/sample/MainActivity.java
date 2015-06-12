@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.webkit.WebView;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -71,6 +72,11 @@ public class MainActivity extends Activity {
         ListView l = (ListView) findViewById(R.id.listView);
         try {
             String upc = beautifiedData.getString("upc");
+            String firstpart = upc.substring(0, 6);
+            String secondpart = upc.substring(6, 9);
+
+            WebView web = (WebView) findViewById(R.id.albumImage1);
+            web.loadUrl("https://images.theorchard.com/release/large_cover/" + firstpart + "/" + secondpart + "/" + upc + ".jpg");
 
             TextView tv1 = (TextView) findViewById(R.id.releaseName);
             tv1.setText(beautifiedData.getString("release_name"));
