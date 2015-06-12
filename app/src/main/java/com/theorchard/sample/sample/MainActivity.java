@@ -64,19 +64,19 @@ public class MainActivity extends Activity {
     }
 
     public void clickRefreshButton(View v) {
-        TextView upc_textbox = (TextView) findViewById(R.id.upcTextView);
-        String responseText = makeRequest(base_url.replace("{upc}", upc_textbox.getText()));
+        TextView upcTextBox = (TextView) findViewById(R.id.upcTextView);
+        String responseText = makeRequest(base_url.replace("{upc}", upcTextBox.getText()));
         JSONObject beautifiedData = responseDecorator(responseText);
 
         //tv.setText(beautifiedData.toString());
-        ListView l = (ListView) findViewById(R.id.listView);
+        ListView lView = (ListView) findViewById(R.id.listView);
         try {
             String upc = beautifiedData.getString("upc");
-            String firstpart = upc.substring(0, 6);
-            String secondpart = upc.substring(6, 9);
+            String firstPart = upc.substring(0, 6);
+            String secondPart = upc.substring(6, 9);
 
             WebView web = (WebView) findViewById(R.id.albumImage1);
-            web.loadUrl("https://images.theorchard.com/release/large_cover/" + firstpart + "/" + secondpart + "/" + upc + ".jpg");
+            web.loadUrl("https://images.theorchard.com/release/cover/" + firstPart + "/" + secondPart + "/" + upc + ".jpg");
 
             TextView tv1 = (TextView) findViewById(R.id.releaseName);
             tv1.setText(beautifiedData.getString("release_name"));
@@ -87,7 +87,7 @@ public class MainActivity extends Activity {
             JSONArray trackObjects = beautifiedData.getJSONArray("tracks");
             for(int i=0; i<trackObjects.length();i++){
                 JSONObject track = (JSONObject) trackObjects.get(i);
-                data.add(track.getString("track_number")+". "+track.getString("track_name")+" "+track.getString("length_minute")+":"+track.getString("length_seconds"));
+                data.add(track.getString("track_number")+". "+track.getString("track_name"));
                 adapter.notifyDataSetChanged();
             }
 
@@ -96,7 +96,7 @@ public class MainActivity extends Activity {
                     Toast.LENGTH_LONG).show();
         }
 
-        l.setAdapter(adapter);
+        lView.setAdapter(adapter);
 
     }
 
