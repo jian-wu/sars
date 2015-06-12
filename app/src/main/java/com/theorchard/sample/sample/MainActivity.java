@@ -41,6 +41,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, data);
+        findViewById(R.id.albumImage1).setVisibility(View.GONE);
 
     }
 
@@ -75,6 +76,7 @@ public class MainActivity extends Activity {
             String firstPart = upc.substring(0, 6);
             String secondPart = upc.substring(6, 9);
 
+            findViewById(R.id.albumImage1).setVisibility(View.VISIBLE);
             WebView web = (WebView) findViewById(R.id.albumImage1);
             web.loadUrl("https://images.theorchard.com/release/cover/" + firstPart + "/" + secondPart + "/" + upc + ".jpg");
 
